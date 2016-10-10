@@ -20,6 +20,8 @@ public class QueryResult<T> {
 
     private Integer currentPageNumber;     // 当前分页页码
 
+    private Long totalRowCount;         // 总共多少条数据
+
     private Long totalPageSize;         // 总共多少页
 
     public List<T> getResultSet() {
@@ -52,6 +54,14 @@ public class QueryResult<T> {
 
     public void setTotalPageSize(Long totalPageSize) {
         this.totalPageSize = totalPageSize;
+    }
+
+    public Long getTotalRowCount() {
+        return totalRowCount;
+    }
+
+    public void setTotalRowCount(Long totalRowCount) {
+        this.totalRowCount = totalRowCount;
     }
 
     /**
@@ -91,6 +101,7 @@ public class QueryResult<T> {
             totalPageSize = Long.valueOf(new BigDecimal(totalDataSize).divide(new BigDecimal(pagingParam.getPageSize())).setScale(0, BigDecimal.ROUND_UP) + "");
         }
         queryResult.setTotalPageSize(totalPageSize);
+        queryResult.setTotalRowCount(totalDataSize);                        // 总条数
         return queryResult;
     }
 }

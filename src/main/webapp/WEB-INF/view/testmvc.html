@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    freemarker 解析视图
+    <#list rows as address>
+        <br /> ${address.id} - ${address.addrName}
+    </#list>
+    <br/>当前第 ${pageNumber} 页，每页 ${pageSize} 条， 共 ${totalPageSize} 页
+</body>
+</html>

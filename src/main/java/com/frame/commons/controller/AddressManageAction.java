@@ -66,7 +66,8 @@ public class AddressManageAction {
     @RequestMapping("/list3")
     public String list3(ModelMap mv) {
 
-        PagingParam queryParam = new PagingParam(2, 2);
+        PagingParam queryParam = null;
+//        PagingParam queryParam = new PagingParam(2, 2);
         String jpql = "select o from Address o where o.deleteStatus = :deleteStatus and o.id in (:ids) order by o.id desc";
         Map<String, Object> conditionalParams = new HashMap<String, Object>();
         conditionalParams.put("deleteStatus", false);

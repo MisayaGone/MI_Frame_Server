@@ -10,15 +10,51 @@
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/view/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
     <!-- 开启注解 -->
     <mvc:annotation-driven />
 
     <!-- 静态资源通过 -->
     <mvc:default-servlet-handler />
+
+    <!-- 设置 springmvc 采用 jsp tag视图解析器设置 - s -->
+    <!-- jsp tag视图解析器 -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+    <!--<property name="prefix" value="/WEB-INF/view/"/>-->
+    <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+
+    <!-- 设置 springmvc 采用 freemarker视图解析器 -->
+    <bean id="freemarkerViewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="contentType" value="text/html;charset=utf-8" />
+        <property name="cache" value="true" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".html" />
+    </bean>
+
+    <!-- 设置freeMarker的配置文件路径 -->
+    <bean id="freemarkerConfiguration"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:freemarker.properties" />
+    </bean>
+
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+
+    <!-- 设置freeMarker配置 -->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="freemarkerSettings" ref="freemarkerConfiguration" />
+        <property name="templateLoaderPath">
+            <value>/WEB-INF/view/</value>
+        </property>
+        <property name="freemarkerVariables"><!--设置一些常用的全局变量-->
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape" />
+                <entry key="webRoot" value="/shop"></entry>
+                <entry key="jsRoot" value="/shop/js"></entry>
+            </map>
+        </property>
+    </bean>
+    <!-- 视图解析器设置 - e -->
 </beans>
