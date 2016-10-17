@@ -1,0 +1,7 @@
+﻿/*
+ Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+CKEDITOR.addTemplates("default",{imagesPath:CKEDITOR.getUrl(CKEDITOR.plugins.getPath("templates")+"templates/images/"),templates:[
+    {title:"任务要求模板（线下）",image:"template1.gif",description:"",html:'<table border="0" cellpadding="1" cellspacing="1" height="311" width="500"><tbody><tr><td><span style="color:#0000CD;"><strong>爱上岗，随时接任务，不一样的挣钱方式，不一样的生活方式~</strong></span></td></tr><tr><td><br /><span style="color:#FF0000;"><strong>一个任务每个人只能接一次哦~</strong></span></td></tr><tr><td><br />【<span style="color:#0000CD;"><strong>拍摄</strong></span>】</td></tr><tr><td><br />1、请到门店日化区域<br /><br />2、拍摄<span style="color:#FF0000;">洗发水</span>排面照片<br /> 3、请<span style="color:#FF0000;">正对货架</span>拍摄，货架排面拍摄完整，要拍摄到<span style="color:#FF0000;">货架的顶端和低端</span><br /> <br />4、<span style="color:#FF0000;">至少拍摄到2个及以上品牌</span>的洗发水排面照片<br /><br />5、照片清晰不模糊<br />&nbsp;<table border="0" cellpadding="1" cellspacing="1" style="width: 500px;"><tbody><tr><td style="text-align: center;"><img alt="" src="/resources/images/task/5c853544-8f74-4d14-be2a-eda5a44d41ce.jpg" style="width: 200px; height: 200px;" /></td></tr></tbody></table></td></tr></tbody></table>'}
+]});
