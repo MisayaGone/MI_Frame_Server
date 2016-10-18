@@ -16,10 +16,4 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin")
 public class LoginManageAction {
 
-    @RequestMapping("/login")
-    public String login(ModelMap mv, String error) {
-
-        mv.put("error", CommUtil.null2String(CommUtil.null2Boolean(error)));
-        return "admin/login/login";
-    }
 }

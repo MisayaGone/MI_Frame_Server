@@ -16,9 +16,9 @@ public class QueryResult<T> {
 
     private List<T> resultSet;             // 当页分页数据
 
-    private Integer currentPageSize;       // 当页分页条数
+    private Long currentPageNumber;     // 当前分页页码
 
-    private Integer currentPageNumber;     // 当前分页页码
+    private Long currentPageSize;       // 当页分页条数
 
     private Long totalRowCount;         // 总共多少条数据
 
@@ -32,20 +32,20 @@ public class QueryResult<T> {
         this.resultSet = resultSet;
     }
 
-    public Integer getCurrentPageSize() {
-        return currentPageSize;
-    }
-
-    public void setCurrentPageSize(Integer currentPageSize) {
-        this.currentPageSize = currentPageSize;
-    }
-
-    public Integer getCurrentPageNumber() {
+    public Long getCurrentPageNumber() {
         return currentPageNumber;
     }
 
-    public void setCurrentPageNumber(Integer currentPageNumber) {
+    public void setCurrentPageNumber(Long currentPageNumber) {
         this.currentPageNumber = currentPageNumber;
+    }
+
+    public Long getCurrentPageSize() {
+        return currentPageSize;
+    }
+
+    public void setCurrentPageSize(Long currentPageSize) {
+        this.currentPageSize = currentPageSize;
     }
 
     public Long getTotalPageSize() {
@@ -91,8 +91,8 @@ public class QueryResult<T> {
         // 回执查询的数据信息
         QueryResult<T> queryResult = new QueryResult<T>();
         queryResult.setResultSet(querySetTyped.getResultList());            // 数据集合
-        queryResult.setCurrentPageNumber(pagingParam.getPageNumber());      // 当前分页页码
-        queryResult.setCurrentPageSize(pagingParam.getPageSize());          // 当前分页条数
+        queryResult.setCurrentPageNumber(Long.valueOf(pagingParam.getPageNumber()));      // 当前分页页码
+        queryResult.setCurrentPageSize(Long.valueOf(pagingParam.getPageSize()));          // 当前分页条数
 
         Long totalPageSize = 0L;                                            // 总页数
         Long totalDataSize = queryCountTyped.getSingleResult();

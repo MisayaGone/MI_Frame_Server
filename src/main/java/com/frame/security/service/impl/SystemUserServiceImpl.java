@@ -1,5 +1,7 @@
 package com.frame.security.service.impl;
 
+import com.frame.query.utils.PagingParam;
+import com.frame.query.utils.QueryResult;
 import com.frame.security.entity.SystemResource;
 import com.frame.security.entity.SystemUser;
 import com.frame.security.repository.SystemResourceRepository;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by THINK on 2016/10/17.
@@ -23,5 +26,10 @@ public class SystemUserServiceImpl implements ISystemUserService {
     public SystemUser getByUserAccount(String account) {
 
         return systemUserRepository.getByUserAccount(account);
+    }
+
+    public QueryResult<SystemUser> getQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam) {
+
+        return systemUserRepository.queryQueryResult(jpql, conditionalParams, pagingParam);
     }
 }

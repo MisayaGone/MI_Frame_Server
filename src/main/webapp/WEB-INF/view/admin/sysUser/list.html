@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - jqGird</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/resources/lib/hplus/lib/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/resources/lib/hplus/lib/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="/resources/lib/hplus/lib/css/plugins/jqgrid/ui.jqgrid.css?0820" rel="stylesheet">
+
+    <link href="/resources/lib/hplus/lib/css/animate.css" rel="stylesheet">
+    <link href="/resources/lib/hplus/lib/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+    </style>
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>jQuery Grid Plugin – jqGrid</h5>
+                </div>
+                <div class="ibox-content">
+                    <h4 class="m-t">高级用法</h4>
+
+
+                    <div class="jqGrid_wrapper">
+                        <table id="grid_table"></table>
+                        <div id="grid_pager"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="/resources/lib/hplus/lib/js/jquery.min.js?v=2.1.4"></script>
+<script src="/resources/lib/hplus/lib/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+<!-- Peity -->
+<script src="/resources/lib/hplus/lib/js/plugins/peity/jquery.peity.min.js"></script>
+
+<!-- jqGrid -->
+<script src="/resources/lib/hplus/lib/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
+<script src="/resources/lib/hplus/lib/js/plugins/jqgrid/jquery.jqGrid.min.js?0820"></script>
+
+<!-- 自定义js -->
+<script src="/resources/lib/hplus/lib/js/content.js?v=1.0.0"></script>
+
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+
+        var grid_table = "#grid_table";
+        var grid_pager = "#grid_pager";
+
+        $(grid_table).jqGrid({
+            url:"/admin/systemUser/listJson.json",
+            mtype: "POST",
+            datatype: "json",
+            height: 450,
+            autowidth: true,
+            shrinkToFit: true,
+            rowNum: 2,
+            rowList: [2, 10, 20, 30],
+            colNames: ['序号', '创建时间', '登陆账号', '用户名', '是否禁用', '操作'],
+            colModel: [
+                {name: 'id', index: 'id', width: 60, align:'left', editable: true, sortable:true, sorttype: "int", search:false,},
+                {name: 'createTime', index: 'createTime', width: 60, align:'left', editable: true, sortable:true, sorttype: "date",search:false, formatter:"date",formatoptions: {srcformat:'Y-m-d H:i:s',newformat:'Y-m-d H:i:s'}},
+                {name: 'userAccount', index: 'userAccount', editable: true, width: 60, align:'left'},
+                {name: 'userName', index: 'userName', editable: true, width: 60, align:'left'},
+                {name: 'enabled', index: 'enabled', editable: true, width: 60, align:'left', formatter:function(cellvalue, options, row){
+                    return cellvalue==true?"是":"否";
+                }},
+                {name:'action',index:'action', width:60,label:"操作", align:'left', editable: false,search:false, sortable:false}
+            ],
+            pager: grid_pager,
+            viewrecords: true,
+            caption: "jqGrid 示例2",
+            add: true,
+            edit: true,
+            addtext: 'Add',
+            edittext: 'Edit',
+            hidegrid: false,
+            gridComplete: function() {
+                var ids = $(grid_table).jqGrid('getDataIDs');
+
+                for (var i = 0; i < ids.length; i++) {
+                    var enabled = $(grid_table).jqGrid('getRowData',ids[i]).enabled;
+                    $(grid_table).jqGrid('setRowData', ids[i], {
+                        action : "<button class='btn btn-xs btn-info edit' style='width:80px;height: 27px;' id='editPage_" + ids[i] + "' onclick='editPage(" + ids[i] + ")'><i class='icon-edit'></i>"+"点击修改"+"</button>"
+                    });
+                }
+            }
+        });
+
+        // reload data table
+        // jQuery(grid_table).jqGrid('setGridParam', {postData:getQueryData(), page:1}).trigger("reloadGrid");
+
+        // Add selection
+        $(grid_table).setSelection(4, true);
+
+        // Setup buttons
+        $(grid_table).jqGrid('navGrid', grid_pager, {
+            edit: true,
+            add: true,
+            del: true,
+            search: true
+        }, {
+            height: 200,
+            reloadAfterSubmit: true
+        });
+
+        // Add responsive to jqGrid
+        $(window).bind('resize', function () {
+            var width = $('.jqGrid_wrapper').width();
+            $(grid_table).setGridWidth(width);
+        });
+    });
+</script>
+
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<!--统计代码，可删除-->
+
+</body>
+
+</html>
