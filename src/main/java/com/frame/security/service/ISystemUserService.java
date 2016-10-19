@@ -3,6 +3,7 @@ package com.frame.security.service;
 
 import com.frame.query.utils.PagingParam;
 import com.frame.query.utils.QueryResult;
+import com.frame.query.utils.SortingParam;
 import com.frame.security.entity.SystemUser;
 
 import java.util.Map;
@@ -14,5 +15,5 @@ public interface ISystemUserService {
 
     public SystemUser getByUserAccount(String account);
 
-    public QueryResult<SystemUser> getQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam);
+    public QueryResult<SystemUser> getQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam);
 }

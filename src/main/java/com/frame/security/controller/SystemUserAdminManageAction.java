@@ -6,6 +6,7 @@ import com.frame.commons.utils.CommUtil;
 import com.frame.query.json.JsonResult;
 import com.frame.query.utils.PagingParam;
 import com.frame.query.utils.QueryResult;
+import com.frame.query.utils.SortingParam;
 import com.frame.security.entity.SystemUser;
 import com.frame.security.service.ISystemUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class SystemUserAdminManageAction {
     public String listJson(ModelMap mv, Integer page, Integer rows, String sidx, String sord) {
 
         String jpql = "select o from SystemUser o where 1=1";
-        QueryResult<SystemUser> queryResult = systemUserService.getQueryResult(jpql, null, new PagingParam(page, rows));
+        QueryResult<SystemUser> queryResult = systemUserService.getQueryResult(jpql, null, new PagingParam(page, rows), new SortingParam("id", SortingParam.SORT_ORDER_DESC));
 
         mv.put("jqcommon", JSON.toJSONStringWithDateFormat(new JsonResult(queryResult), "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat));
 

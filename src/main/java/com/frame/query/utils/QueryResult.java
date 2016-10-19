@@ -75,7 +75,7 @@ public class QueryResult<T> {
      * @param <T>
      * @return
      */
-    public static <T> QueryResult<T> getQueryResult(EntityManager entityManager, String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, Class<T> entityClass) {
+    public static <T> QueryResult<T> getQueryResult(EntityManager entityManager, String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam, Class<T> entityClass) {
 
         // 检查分页参数
         if(pagingParam==null || pagingParam.getPageNumber() == null || pagingParam.getPageSize() == null) {
@@ -86,7 +86,7 @@ public class QueryResult<T> {
         TypedQuery<Long> queryCountTyped = QueryTyped.getTypedQueryByCustomForTotalCount(entityManager, jpql, conditionalParams, Long.class);
 
         // 数据集合查询
-        TypedQuery<T> querySetTyped = QueryTyped.getTypedQueryByCustom(entityManager, jpql, conditionalParams, pagingParam, entityClass);
+        TypedQuery<T> querySetTyped = QueryTyped.getTypedQueryByCustom(entityManager, jpql, conditionalParams, pagingParam, sortingParam, entityClass);
 
         // 回执查询的数据信息
         QueryResult<T> queryResult = new QueryResult<T>();

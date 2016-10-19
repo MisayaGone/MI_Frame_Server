@@ -2,6 +2,7 @@ package com.frame.security.repository.impl;
 
 import com.frame.query.utils.PagingParam;
 import com.frame.query.utils.QueryResult;
+import com.frame.query.utils.SortingParam;
 import com.frame.security.entity.SystemUser;
 import com.frame.security.repository.dao.ISystemUserDao;
 
@@ -27,9 +28,9 @@ public class SystemUserRepositoryImpl implements ISystemUserDao {
         return  (users!=null && users.size()>0 )? users.get(0) : null;
     }
 
-    public QueryResult<SystemUser> queryQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam) {
+    public QueryResult<SystemUser> queryQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam) {
 
-        QueryResult<SystemUser> queryResult = QueryResult.getQueryResult(entityManager, jpql, conditionalParams, pagingParam, SystemUser.class);
+        QueryResult<SystemUser> queryResult = QueryResult.getQueryResult(entityManager, jpql, conditionalParams, pagingParam, sortingParam, SystemUser.class);
         return queryResult;
     }
 }

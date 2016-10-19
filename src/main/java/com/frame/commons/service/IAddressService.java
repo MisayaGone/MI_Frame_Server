@@ -4,6 +4,7 @@ import com.frame.commons.entity.Address;
 import com.frame.query.utils.ConditionalParam;
 import com.frame.query.utils.PagingParam;
 import com.frame.query.utils.QueryResult;
+import com.frame.query.utils.SortingParam;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +14,9 @@ import java.util.Map;
  */
 public interface IAddressService {
 
-    public List<Address> queryPageAndSortListByCustom(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam);
+    public List<Address> queryPageAndSortListByCustom(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam);
 
     public List<Address> queryPageAndSortListByCondition(List<ConditionalParam> conditionalParams, PagingParam pagingParam);
 
-    public QueryResult<Address> queryQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam);
+    public QueryResult<Address> queryQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam);
 }

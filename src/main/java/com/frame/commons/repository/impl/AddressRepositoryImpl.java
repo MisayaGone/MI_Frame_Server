@@ -2,10 +2,7 @@ package com.frame.commons.repository.impl;
 
 import com.frame.commons.entity.Address;
 import com.frame.commons.repository.dao.IAddressDao;
-import com.frame.query.utils.ConditionalParam;
-import com.frame.query.utils.PagingParam;
-import com.frame.query.utils.QueryResult;
-import com.frame.query.utils.QueryTyped;
+import com.frame.query.utils.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,9 +18,9 @@ public class AddressRepositoryImpl implements IAddressDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Address> queryPageAndSortListByCustom(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam) {
+    public List<Address> queryPageAndSortListByCustom(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam) {
 
-        TypedQuery<Address> addrs =  QueryTyped.getTypedQueryByCustom(entityManager, jpql, conditionalParams, pagingParam, Address.class);
+        TypedQuery<Address> addrs =  QueryTyped.getTypedQueryByCustom(entityManager, jpql, conditionalParams, pagingParam, sortingParam, Address.class);
 
         return addrs.getResultList();
     }
@@ -34,9 +31,9 @@ public class AddressRepositoryImpl implements IAddressDao {
         return addrs.getResultList();
     }
 
-    public QueryResult<Address> queryQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam) {
+    public QueryResult<Address> queryQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam) {
 
-        QueryResult<Address> queryResult = QueryResult.getQueryResult(entityManager, jpql, conditionalParams, pagingParam, Address.class);
+        QueryResult<Address> queryResult = QueryResult.getQueryResult(entityManager, jpql, conditionalParams, pagingParam, sortingParam, Address.class);
         return queryResult;
     }
 }

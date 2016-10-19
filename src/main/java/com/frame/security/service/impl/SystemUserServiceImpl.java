@@ -2,6 +2,7 @@ package com.frame.security.service.impl;
 
 import com.frame.query.utils.PagingParam;
 import com.frame.query.utils.QueryResult;
+import com.frame.query.utils.SortingParam;
 import com.frame.security.entity.SystemResource;
 import com.frame.security.entity.SystemUser;
 import com.frame.security.repository.SystemResourceRepository;
@@ -28,8 +29,8 @@ public class SystemUserServiceImpl implements ISystemUserService {
         return systemUserRepository.getByUserAccount(account);
     }
 
-    public QueryResult<SystemUser> getQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam) {
+    public QueryResult<SystemUser> getQueryResult(String jpql, Map<String, Object> conditionalParams, PagingParam pagingParam, SortingParam sortingParam) {
 
-        return systemUserRepository.queryQueryResult(jpql, conditionalParams, pagingParam);
+        return systemUserRepository.queryQueryResult(jpql, conditionalParams, pagingParam, sortingParam);
     }
 }

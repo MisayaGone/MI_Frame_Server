@@ -5,6 +5,7 @@ import com.frame.commons.service.IAddressService;
 import com.frame.query.utils.ConditionalParam;
 import com.frame.query.utils.PagingParam;
 import com.frame.query.utils.QueryResult;
+import com.frame.query.utils.SortingParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,7 +35,7 @@ public class AddressManageAction {
         ids.add(5l);
         ids.add(9l);
         conditionalParams.put("ids", ids);
-        List<Address> addresses = addressService.queryPageAndSortListByCustom(jpql, conditionalParams, queryParam);
+        List<Address> addresses = addressService.queryPageAndSortListByCustom(jpql, conditionalParams, queryParam, null);
 
         mv.put("addresses", addresses);
         return "testmvc";
@@ -76,7 +77,7 @@ public class AddressManageAction {
         ids.add(5l);
         ids.add(9l);
         conditionalParams.put("ids", ids);
-        QueryResult<Address> queryResult = addressService.queryQueryResult(jpql, conditionalParams, queryParam);
+        QueryResult<Address> queryResult = addressService.queryQueryResult(jpql, conditionalParams, queryParam, new SortingParam());
 
         mv.put("pageNumber", queryResult.getCurrentPageNumber());
         mv.put("pageSize", queryResult.getCurrentPageSize());

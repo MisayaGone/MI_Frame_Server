@@ -20,11 +20,17 @@ public class QueryTyped {
      * @param <T>
      * @return
      */
-    public static  <T> TypedQuery<T> getTypedQueryByCustom(EntityManager entityManager, String jpql, Map<String, Object> conditionParams, PagingParam pagingParam, Class<T> entityClass) {
+    public static  <T> TypedQuery<T> getTypedQueryByCustom(EntityManager entityManager, String jpql, Map<String, Object> conditionParams, PagingParam pagingParam, SortingParam sortingParam, Class<T> entityClass) {
 
-        TypedQuery<T> typedQuery = entityManager.createQuery(jpql, entityClass);
-        typedQuery = QueryTyped.appendConditionalParam(typedQuery, conditionParams);
-        return QueryTyped.appendPagingParam(typedQuery, pagingParam);
+        if(sortingParam!=null) {
+            System.out.println(sortingParam.getSortField());
+            System.out.println(sortingParam.getSortOrder());
+            jpql += (" order by o." + sortingParam.getSortField() + " " + sortingParam.getSortOrder());
+        }
+        TypedQuery<T> typedQuery = entityManager.createQuery(jpql, entityClass);        // 创建查询对象
+        typedQuery = QueryTyped.appendConditionalParam(typedQuery, conditionParams);    // 增加查询条件
+//        typedQuery = QueryTyped.appendSortingParam(typedQuery, sortingParam);           // 增加排序条件
+        return QueryTyped.appendPagingParam(typedQuery, pagingParam);                   // 增加分页条件
     }
 
     /**
@@ -56,6 +62,27 @@ public class QueryTyped {
         return QueryTyped.appendPagingParam(typedQuery, pagingParam);
     }
 
+    // 追加查询条件
+    public static <T> TypedQuery<T> appendConditionalParam(TypedQuery<T> typedQuery, Map<String, Object> conditionParams) {
+
+        if(conditionParams!=null) {
+            for (String key : conditionParams.keySet()) {
+                typedQuery.setParameter(key, conditionParams.get(key));
+            }
+        }
+        return typedQuery;
+    }
+
+//    // 追加排序条件
+//    public static <T> TypedQuery<T> appendSortingParam(TypedQuery<T> typedQuery, SortingParam sortingParam) {
+//
+//        if(sortingParam==null) {
+//            return typedQuery;
+//        }
+//        typedQuery.
+//        return typedQuery;
+//    }
+
     // 追加分页条件
     public static <T> TypedQuery<T> appendPagingParam(TypedQuery<T> typedQuery, PagingParam pagingParam) {
 
@@ -66,17 +93,6 @@ public class QueryTyped {
             int minLimit = pageSize * (pageNumber - 1);
             int maxLimit = pageSize;
             typedQuery.setFirstResult(minLimit).setMaxResults(maxLimit);
-        }
-        return typedQuery;
-    }
-
-    // 追加查询条件
-    public static <T> TypedQuery<T> appendConditionalParam(TypedQuery<T> typedQuery, Map<String, Object> conditionParams) {
-
-        if(conditionParams!=null) {
-            for (String key : conditionParams.keySet()) {
-                typedQuery.setParameter(key, conditionParams.get(key));
-            }
         }
         return typedQuery;
     }
