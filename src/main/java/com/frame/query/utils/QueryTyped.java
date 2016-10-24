@@ -25,7 +25,9 @@ public class QueryTyped {
         if(sortingParam!=null) {
             System.out.println(sortingParam.getSortField());
             System.out.println(sortingParam.getSortOrder());
-            jpql += (" order by o." + sortingParam.getSortField() + " " + sortingParam.getSortOrder());
+            if(jpql.toLowerCase().indexOf("order by")<=0) {     // 判断是否存在ORDER BY 语句
+                jpql += (" order by " + sortingParam.getSortField() + " " + sortingParam.getSortOrder());
+            }
         }
         TypedQuery<T> typedQuery = entityManager.createQuery(jpql, entityClass);        // 创建查询对象
         typedQuery = QueryTyped.appendConditionalParam(typedQuery, conditionParams);    // 增加查询条件
@@ -100,7 +102,7 @@ public class QueryTyped {
     public static <T> TypedQuery<T> getTypedQueryByCustomForTotalCount(EntityManager entityManager, String jpql, Map<String, Object> conditionParams, Class<T> entityClass) {
 
         String lowerCaseJpql = jpql.toLowerCase();
-        jpql = " select count(o) " + jpql.substring(lowerCaseJpql.indexOf("from"), jpql.length());
+        jpql = " select count(*) " + jpql.substring(lowerCaseJpql.indexOf("from"), jpql.length());
         TypedQuery<T> typedQuery = entityManager.createQuery(jpql, entityClass);
         typedQuery = QueryTyped.appendConditionalParam(typedQuery, conditionParams);
         return typedQuery;

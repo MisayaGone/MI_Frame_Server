@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 系统用户管理
  *
@@ -43,8 +46,10 @@ public class SystemUserAdminManageAction {
     @RequestMapping("/listJson")
     public String listJson(ModelMap mv, Integer page, Integer rows, String sidx, String sord) {
 
-        String jpql = "select o from SystemUser o where 1=1";
-        QueryResult<SystemUser> queryResult = systemUserService.getQueryResult(jpql, null, new PagingParam(page, rows), new SortingParam("id", SortingParam.SORT_ORDER_DESC));
+        String jpql = "select a from SystemUser a where 1=1 and a.id = :id order by a.id asc";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", 1l);
+        QueryResult<SystemUser> queryResult = systemUserService.getQueryResult(jpql, params, new PagingParam(page, rows), null);
 
         mv.put("jqcommon", JSON.toJSONStringWithDateFormat(new JsonResult(queryResult), "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat));
 
