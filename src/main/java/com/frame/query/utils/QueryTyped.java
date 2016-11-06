@@ -22,6 +22,7 @@ public class QueryTyped {
      */
     public static  <T> TypedQuery<T> getTypedQueryByCustom(EntityManager entityManager, String jpql, Map<String, Object> conditionParams, PagingParam pagingParam, SortingParam sortingParam, Class<T> entityClass) {
 
+        // 增加排序条件
         if(sortingParam!=null) {
             System.out.println(sortingParam.getSortField());
             System.out.println(sortingParam.getSortOrder());
